@@ -1,22 +1,17 @@
 import 'package:geo_utils/map_generator.dart';
+import 'package:geo_utils/map_test.dart';
+import 'package:geo_utils/polygon.dart';
 import 'package:geo_utils/polygon_generator.dart';
 import 'package:geo_utils/time_test.dart';
 import 'package:vector_math/vector_math.dart';
+import 'map.dart';
 
-class MapTests {
-  List<int> segmentCounts = [1];
-  List<int> polygonCounts = [1];
-  List<List<int>> result = [];
-  MapTests();
+class MapFindPolygonMethodTest extends MapTest {
+  bool Function(Vector2, Polygon) isInsideMethod;
 
-  void setupSegmentCounts(int from, int to) {
-    segmentCounts = List.generate(to - from + 1, (index) => from + index);
-  }
+  MapFindPolygonMethodTest(this.isInsideMethod);
 
-  void setupPolygonCounts(int from, int to) {
-    polygonCounts = List.generate(to - from + 1, (index) => from + index);
-  }
-
+  @override
   void process() {
     final double maxOffset = 10000;
     final double maxRadius = 100;
@@ -35,7 +30,7 @@ class MapTests {
       for (int j = 0; j < segmentCounts.length; j++) {
         final map = mapGenerator.Next(polygonCounts[i], segmentCounts[j]);
         tests[i][j] = TimeTest.test(() {
-          map.findPolygonContains(testPoint);
+          map.findPolygon((polygon) => isInsideMethod(testPoint, polygon));
         });
       }
     }

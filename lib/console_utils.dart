@@ -10,6 +10,7 @@ class ConsoleUtils {
     required int columnWidth,
     required String dataPostfix,
   }) {
+    stdout.write("\n");
     stdout.write("".padRight(columnWidth));
     for (int i = 0; i < columnLabels.length; i++) {
       stdout.write("$columnsHeader${columnLabels[i]}".padRight(columnWidth));
@@ -23,5 +24,6 @@ class ConsoleUtils {
       }
       stdout.write("\n");
     }
+    stdout.write("\n");
   }
 }

@@ -7,9 +7,9 @@ class Map {
 
   Map(this.polygons);
 
-  Polygon? findPolygonContains(Vector2 point) {
+  Polygon? findPolygon(bool Function(Polygon) condition) {
     for(Polygon polygon in polygons) {
-      if (point.isInside(polygon)) return polygon;
+      if (condition(polygon)) return polygon;
     }
     return null;
   }
