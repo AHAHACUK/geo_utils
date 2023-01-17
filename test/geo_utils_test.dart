@@ -159,5 +159,46 @@ void main() {
         expect(point.isInsidePolygonWindingNumber(polygon), true);
       });
     });
+
+    group("isInsideAngleSum", () {
+      test('point in center', () {
+        final point = Vector2(3, 1);
+        expect(point.isInsidePolygonAngleSum(polygon), true);
+      });
+      test('point completly outside', () {
+        final point = Vector2(0, 5);
+        expect(point.isInsidePolygonAngleSum(polygon), false);
+      });
+      test('point outside, but on one horizontal line in center', () {
+        final point = Vector2(0, 1.5);
+        expect(point.isInsidePolygonAngleSum(polygon), false);
+      });
+
+      test('point outside, but on one horizontal line with concave edge', () {
+        final point = Vector2(0, 2.5);
+        expect(point.isInsidePolygonAngleSum(polygon), false);
+      });
+
+      test('point outside, but on one horizontal line with vertex in center',
+          () {
+        final point = Vector2(0, 1);
+        expect(point.isInsidePolygonAngleSum(polygon), false);
+      });
+
+      test('point outside, but on one horizontal line with vertex on edge', () {
+        final point = Vector2(0, -8);
+        expect(point.isInsidePolygonAngleSum(polygon), false);
+      });
+
+      test('point inside on one horizontal line with concave edge', () {
+        final point = Vector2(3, 2.5);
+        expect(point.isInsidePolygonAngleSum(polygon), true);
+      });
+
+      test('point inside crossing zone', () {
+        final point = Vector2(4.5, -2);
+        expect(point.isInsidePolygonAngleSum(polygon), true);
+      });
+    });
   });
 }

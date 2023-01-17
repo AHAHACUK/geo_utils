@@ -11,7 +11,7 @@ class MapGenerator {
   Map Next(int polygonCount, int segmentsCount) {
     List<Polygon> polygons = [];
     for (int i = 0; i < polygonCount; i++) {
-      polygons.add(polygonGenerator.Next(segmentsCount));
+      polygons.add(polygonGenerator.next(segmentsCount));
     }
     return Map(polygons);
   }
